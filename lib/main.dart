@@ -6,51 +6,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Transact Me App',
-      home: MyHomePage(title: 'Transact Me'),
+      title: "Transact Me App",
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Transact Me"),
+        ),
+        body: TransactionForm(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class TransactionForm extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  TransactionFormState createState() => TransactionFormState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() => setState(() => _counter++);
+class TransactionFormState extends State<TransactionForm> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(validator: validateInput),
+          ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Hello World!")));
+                }
+              },
+              child: Text('Input'))
+        ],
       ),
     );
   }
+
+  String validateInput(String value) => value.isEmpty ? "Value cannot be empty" : null;
 }
