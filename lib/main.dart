@@ -12,38 +12,58 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Transact Me"),
         ),
-        body: TransactionForm(),
+        body: OperationForm(),
       ),
     );
   }
 }
 
-class TransactionForm extends StatefulWidget {
+class OperationForm extends StatefulWidget {
+  final _optiuniDeSelectare = [
+    new DropdownMenuItem(
+      child: Center(child: Text(Operatiuni.Tranzactie)),
+      value: Operatiuni.Tranzactie,
+    ),
+    new DropdownMenuItem(
+      child: Center(child: Text(Operatiuni.Transfer)),
+      value: Operatiuni.Transfer,
+    ),
+  ];
+
   @override
-  TransactionFormState createState() => TransactionFormState();
+  OperationFormState createState() => OperationFormState();
 }
 
-class TransactionFormState extends State<TransactionForm> {
-  final _formKey = GlobalKey<FormState>();
+class Operatiuni {
+  static const String Tranzactie = "Tranzacție";
+  static const String Transfer = "Transfer";
+}
+
+class OperationFormState extends State<OperationForm> {
+  var _operatiuneaCurenta = Operatiuni.Tranzactie;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
+    return Center(
       child: Column(
-        children: <Widget>[
-          TextFormField(validator: validateInput),
-          ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Hello World!")));
-                }
-              },
-              child: Text('Input'))
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Cel fel de operațiune ați dori să efectuați?"),
+          DropdownButton(
+            value: _operatiuneaCurenta,
+            items: widget._optiuniDeSelectare,
+            onChanged: laSelectareaOperatiunii,
+          ),
         ],
       ),
     );
   }
 
-  String validateInput(String value) => value.isEmpty ? "Value cannot be empty" : null;
+  laSelectareaOperatiunii(operatiuneSelectata) {
+    setState(() => _operatiuneaCurenta = operatiuneSelectata);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Ați selectat operațiunea $operatiuneSelectata"),
+      duration: Duration(seconds: 1),
+    ));
+  }
 }
