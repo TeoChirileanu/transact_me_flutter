@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+class TransactionScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Înregistrează o nouă tranzacție"),
+      ),
+      body: TransactionForm(),
+    );
+  }
+}
+
 class TransactionForm extends StatefulWidget {
   final _optiuniDeSelectare = [
     new DropdownMenuItem(

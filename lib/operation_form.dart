@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:transact_me/transaction_form.dart';
+import 'package:transact_me/transfer_form.dart';
 
 class OperationForm extends StatefulWidget {
   final _optiuniDeSelectare = [
@@ -22,7 +24,7 @@ class Operatiuni {
 }
 
 class _OperationFormState extends State<OperationForm> {
-  var _operatiuneaCurenta = Operatiuni.Tranzactie;
+  String _operatiuneaCurenta;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +50,24 @@ class _OperationFormState extends State<OperationForm> {
   }
 
   laSelectareaOperatiunii(operatiuneSelectata) {
-    setState(() => _operatiuneaCurenta = operatiuneSelectata);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Ați selectat operațiunea $operatiuneSelectata"),
       duration: Duration(seconds: 1),
     ));
+
+    setState(() => _operatiuneaCurenta = operatiuneSelectata);
+
+    if (_operatiuneaCurenta == Operatiuni.Tranzactie)
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TransactionScreen(),
+          ));
+    if (_operatiuneaCurenta == Operatiuni.Transfer)
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TransferScreen(),
+          ));
   }
 }
