@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:transact_me/transaction_form.dart';
+
+import 'operation_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Transact Me"),
         ),
-        body: TransactionForm(),
+        body: OperationForm(),
       ),
     );
   }
