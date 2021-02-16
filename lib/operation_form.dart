@@ -30,11 +30,17 @@ class _OperationFormState extends State<OperationForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Cel fel de operațiune ați dori să efectuați?"),
-          DropdownButton(
-            value: _operatiuneaCurenta,
-            items: widget._optiuniDeSelectare,
-            onChanged: laSelectareaOperatiunii,
+          ListTile(
+            title: Center(
+              child: DropdownButton(
+                value: _operatiuneaCurenta,
+                items: widget._optiuniDeSelectare,
+                onChanged: laSelectareaOperatiunii,
+              ),
+            ),
+            subtitle: Center(
+              child: Text("Cel fel de operațiune ați dori să efectuați?"),
+            ),
           ),
         ],
       ),
