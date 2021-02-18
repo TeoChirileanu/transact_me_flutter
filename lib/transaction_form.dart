@@ -43,12 +43,11 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Spacer(),
-          ListTile(
+    return Column(
+      children: [
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Selectați tipul tranzacției")),
             subtitle: Center(
               child: DropdownButton(
@@ -58,8 +57,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Nume client")),
             subtitle: Center(
               child: TextField(
@@ -68,8 +69,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Prenume client")),
             subtitle: Center(
               child: TextField(
@@ -78,14 +81,18 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          CheckboxListTile(
+        ),
+        Spacer(),
+        Card(
+          child: CheckboxListTile(
             title: Center(child: Text("Clientul este rezident?")),
             value: _clientulEsteRezident,
             onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
           ),
-          Spacer(),
-          Visibility(
+        ),
+        Spacer(),
+        Card(
+          child: Visibility(
             visible: !_clientulEsteRezident,
             child: ListTile(
               title: Center(child: Text("Țara de rezidență a clientului")),
@@ -97,10 +104,12 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(
-              child: Text("Document Identitate"),
+              child: Text("Document Identitate"), // todo: store fields
             ),
             subtitle: Row(
               children: [
@@ -127,8 +136,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ],
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Suma Încasată")),
             subtitle: Center(
               child: TextField(
@@ -137,8 +148,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Cursul de Schimb")),
             subtitle: Center(
               child: TextField(
@@ -147,8 +160,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Comisionul")),
             subtitle: Center(
               child: TextField(
@@ -157,8 +172,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Speze")),
             subtitle: Center(
               child: TextField(
@@ -167,8 +184,10 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-          ListTile(
+        ),
+        Spacer(),
+        Card(
+          child: ListTile(
             title: Center(child: Text("Suma plătită clientului")),
             subtitle: Center(
               child: TextField(
@@ -177,9 +196,9 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
           ),
-          Spacer(),
-        ],
-      ),
+        ),
+        Spacer(),
+      ],
     );
   }
 }
