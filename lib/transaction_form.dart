@@ -14,7 +14,7 @@ class TransactionScreen extends StatelessWidget {
 }
 
 class TransactionForm extends StatefulWidget {
-  final _optiuniDeSelectare = [
+  final _tipuriDeTranzactii = [
     new DropdownMenuItem(
       child: Center(child: Text(TipTranzactie.Vanzare)),
       value: TipTranzactie.Vanzare,
@@ -30,11 +30,16 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-  var _tipulTranzactieiCurente = TipTranzactie.Cumparare;
+  var _tipTranzactie = TipTranzactie.Cumparare;
   var _numeClient = "";
   var _prenumeClient = "";
   var _clientulEsteRezident = false;
-  var _sumaIncasata = 0.0;
+  dynamic _taraRezidenta;
+  dynamic _sumaIncasata;
+  dynamic _cursSchimb;
+  dynamic _comision;
+  dynamic _sumaPlatita;
+  dynamic _speze;
 
   @override
   Widget build(BuildContext context) {
@@ -42,50 +47,139 @@ class _TransactionFormState extends State<TransactionForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Spacer(),
           ListTile(
-            title: Center(
+            title: Center(child: Text("Selectați tipul tranzacției")),
+            subtitle: Center(
               child: DropdownButton(
-                value: _tipulTranzactieiCurente,
-                items: widget._optiuniDeSelectare,
-                onChanged: laSelectareaTipuluiDeTranzactie,
+                value: _tipTranzactie,
+                items: widget._tipuriDeTranzactii,
+                onChanged: (tipTranzactie) => setState(() => _tipTranzactie = tipTranzactie),
               ),
             ),
-            subtitle: Center(child: Text("Selectați tipul tranzacției")),
           ),
+          Spacer(),
           ListTile(
-            subtitle: Center(child: Text("Nume client")),
-            title: Center(
+            title: Center(child: Text("Nume client")),
+            subtitle: Center(
               child: TextField(
+                textAlign: TextAlign.center,
                 onChanged: (numeClient) => setState(() => _numeClient = numeClient),
-                textAlign: TextAlign.center,
               ),
             ),
           ),
+          Spacer(),
           ListTile(
-            subtitle: Center(child: Text("Prenume client")),
-            title: Center(
+            title: Center(child: Text("Prenume client")),
+            subtitle: Center(
               child: TextField(
-                onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
                 textAlign: TextAlign.center,
+                onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
               ),
             ),
           ),
-          SwitchListTile(
+          Spacer(),
+          CheckboxListTile(
             title: Center(child: Text("Clientul este rezident?")),
             value: _clientulEsteRezident,
             onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
           ),
+          Spacer(),
+          Visibility(
+            visible: !_clientulEsteRezident,
+            child: ListTile(
+              title: Center(child: Text("Țara de rezidență a clientului")),
+              subtitle: Center(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  onSubmitted: (taraRezidenta) => setState(() => _taraRezidenta = taraRezidenta),
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(
+              child: Text("Document Identitate"),
+            ),
+            subtitle: Row(
+              children: [
+                Flexible(
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(hintText: "Tip"),
+                  ),
+                ),
+                Spacer(),
+                Flexible(
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(hintText: "Serie"),
+                  ),
+                ),
+                Spacer(),
+                Flexible(
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(hintText: "Număr"),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(child: Text("Suma Încasată")),
+            subtitle: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
+              ),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(child: Text("Cursul de Schimb")),
+            subtitle: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
+              ),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(child: Text("Comisionul")),
+            subtitle: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                onSubmitted: (comision) => setState(() => _comision = comision),
+              ),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(child: Text("Speze")),
+            subtitle: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                onSubmitted: (speze) => setState(() => _speze = speze),
+              ),
+            ),
+          ),
+          Spacer(),
+          ListTile(
+            title: Center(child: Text("Suma plătită clientului")),
+            subtitle: Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                onSubmitted: (sumaPlatita) => setState(() => _sumaPlatita = sumaPlatita),
+              ),
+            ),
+          ),
+          Spacer(),
         ],
       ),
     );
-  }
-
-  laSelectareaTipuluiDeTranzactie(String tipTranzactieSelectat) {
-    setState(() => _tipulTranzactieiCurente = tipTranzactieSelectat);
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Ați selectat tipul de tranzactie $tipTranzactieSelectat"),
-      duration: Duration(seconds: 1),
-    ));
   }
 }
