@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transact_me/models/Tranzactie.dart';
 
 class TransactionScreen extends StatelessWidget {
   @override
@@ -28,13 +29,12 @@ class TransactionForm extends StatefulWidget {
   _TransactionFormState createState() => _TransactionFormState();
 }
 
-class TipTranzactie {
-  static const String Cumparare = "Cumpărare";
-  static const String Vanzare = "Vânzare";
-}
-
 class _TransactionFormState extends State<TransactionForm> {
   var _tipulTranzactieiCurente = TipTranzactie.Cumparare;
+  var _numeClient = "";
+  var _prenumeClient = "";
+  var _clientulEsteRezident = false;
+  var _sumaIncasata = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +50,30 @@ class _TransactionFormState extends State<TransactionForm> {
                 onChanged: laSelectareaTipuluiDeTranzactie,
               ),
             ),
-            subtitle: Center(
-              child: Text("Selectați tipul tranzacției"),
+            subtitle: Center(child: Text("Selectați tipul tranzacției")),
+          ),
+          ListTile(
+            subtitle: Center(child: Text("Nume client")),
+            title: Center(
+              child: TextField(
+                onChanged: (numeClient) => setState(() => _numeClient = numeClient),
+                textAlign: TextAlign.center,
+              ),
             ),
+          ),
+          ListTile(
+            subtitle: Center(child: Text("Prenume client")),
+            title: Center(
+              child: TextField(
+                onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          SwitchListTile(
+            title: Center(child: Text("Clientul este rezident?")),
+            value: _clientulEsteRezident,
+            onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
           ),
         ],
       ),
@@ -61,6 +82,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   laSelectareaTipuluiDeTranzactie(String tipTranzactieSelectat) {
     setState(() => _tipulTranzactieiCurente = tipTranzactieSelectat);
+
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Ați selectat tipul de tranzactie $tipTranzactieSelectat"),
       duration: Duration(seconds: 1),
