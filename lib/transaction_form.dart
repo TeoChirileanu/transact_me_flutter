@@ -33,13 +33,11 @@ class _TransactionFormState extends State<TransactionForm> {
   var _tipTranzactie = TipTranzactie.Cumparare;
   var _numeClient = "";
   var _prenumeClient = "";
-  var _clientulEsteRezident = false;
+  var _clientulEsteRezident = true;
   dynamic _taraRezidenta;
   dynamic _sumaIncasata;
   dynamic _cursSchimb;
-  dynamic _comision;
   dynamic _sumaPlatita;
-  dynamic _speze;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +103,10 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
           ),
         ),
-        Spacer(),
+        Visibility(
+          visible: !_clientulEsteRezident,
+          child: Spacer(),
+        ),
         Card(
           child: ListTile(
             title: Center(
@@ -157,30 +158,6 @@ class _TransactionFormState extends State<TransactionForm> {
               child: TextField(
                 textAlign: TextAlign.center,
                 onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
-              ),
-            ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Comisionul")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onSubmitted: (comision) => setState(() => _comision = comision),
-              ),
-            ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Speze")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onSubmitted: (speze) => setState(() => _speze = speze),
               ),
             ),
           ),

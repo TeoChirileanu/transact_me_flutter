@@ -24,46 +24,37 @@ class Operatiuni {
 }
 
 class _OperationFormState extends State<OperationForm> {
-  String _operatiuneaCurenta;
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ListTile(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Card(
+          child: ListTile(
             title: Center(
+              child: Text("Cel fel de operațiune ați dori să efectuați?"),
+            ),
+            subtitle: Center(
               child: DropdownButton(
-                value: _operatiuneaCurenta,
+                value: null,
                 items: widget._optiuniDeSelectare,
                 onChanged: laSelectareaOperatiunii,
               ),
             ),
-            subtitle: Center(
-              child: Text("Cel fel de operațiune ați dori să efectuați?"),
-            ),
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
 
   laSelectareaOperatiunii(operatiuneSelectata) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Ați selectat operațiunea $operatiuneSelectata"),
-      duration: Duration(seconds: 1),
-    ));
-
-    setState(() => _operatiuneaCurenta = operatiuneSelectata);
-
-    if (_operatiuneaCurenta == Operatiuni.Tranzactie)
+    if (operatiuneSelectata == Operatiuni.Tranzactie)
       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => TransactionScreen(),
           ));
-    if (_operatiuneaCurenta == Operatiuni.Transfer)
+    if (operatiuneSelectata == Operatiuni.Transfer)
       Navigator.push(
           context,
           MaterialPageRoute(
