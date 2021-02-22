@@ -90,15 +90,20 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
             Spacer(),
-            CheckboxListTile(
-              // todo: make it a row
-              title: Center(
-                  child: Text(
-                "Clientul este rezident?",
-                style: TextStyle(fontSize: 20),
-              )),
-              value: _clientulEsteRezident,
-              onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Clientul este rezident?",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Checkbox(
+                  value: _clientulEsteRezident,
+                  onChanged: (value) => setState(
+                    () => _clientulEsteRezident = value,
+                  ),
+                )
+              ],
             ),
             Spacer(),
             Visibility(
