@@ -29,7 +29,7 @@ class _OperationFormState extends State<OperationForm> {
   Widget build(BuildContext context) {
     return Center(
       child: AspectRatio(
-        aspectRatio: 3 / 2,
+        aspectRatio: 4 / 3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

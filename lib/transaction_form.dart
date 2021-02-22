@@ -41,141 +41,164 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Selectați tipul tranzacției")),
-            subtitle: Center(
-              child: DropdownButton(
-                value: _tipTranzactie,
-                items: widget._tipuriDeTranzactii,
-                onChanged: (tipTranzactie) => setState(() => _tipTranzactie = tipTranzactie),
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: Column(
+          children: [
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Selectați tipul tranzacției",
+                style: TextStyle(fontSize: 20),
+              )),
+              subtitle: Center(
+                child: DropdownButton(
+                  value: _tipTranzactie,
+                  items: widget._tipuriDeTranzactii,
+                  onChanged: (tipTranzactie) => setState(() => _tipTranzactie = tipTranzactie),
+                ),
               ),
             ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Nume client")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onChanged: (numeClient) => setState(() => _numeClient = numeClient),
-              ),
-            ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Prenume client")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
-              ),
-            ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: CheckboxListTile(
-            title: Center(child: Text("Clientul este rezident?")),
-            value: _clientulEsteRezident,
-            onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: Visibility(
-            visible: !_clientulEsteRezident,
-            child: ListTile(
-              title: Center(child: Text("Țara de rezidență a clientului")),
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Nume client",
+                style: TextStyle(fontSize: 20),
+              )),
               subtitle: Center(
                 child: TextField(
                   textAlign: TextAlign.center,
-                  onSubmitted: (taraRezidenta) => setState(() => _taraRezidenta = taraRezidenta),
+                  onChanged: (numeClient) => setState(() => _numeClient = numeClient),
                 ),
               ),
             ),
-          ),
-        ),
-        Visibility(
-          visible: !_clientulEsteRezident,
-          child: Spacer(),
-        ),
-        Card(
-          child: ListTile(
-            title: Center(
-              child: Text("Document Identitate"), // todo: store fields
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Prenume client",
+                style: TextStyle(fontSize: 20),
+              )),
+              subtitle: Center(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
+                ),
+              ),
             ),
-            subtitle: Row(
-              children: [
-                Flexible(
+            Spacer(),
+            CheckboxListTile(
+              // todo: make it a row
+              title: Center(
+                  child: Text(
+                "Clientul este rezident?",
+                style: TextStyle(fontSize: 20),
+              )),
+              value: _clientulEsteRezident,
+              onChanged: (clientulEsteRezident) => setState(() => _clientulEsteRezident = clientulEsteRezident),
+            ),
+            Spacer(),
+            Visibility(
+              visible: !_clientulEsteRezident,
+              child: ListTile(
+                title: Center(
+                    child: Text(
+                  "Țara de rezidență a clientului",
+                  style: TextStyle(fontSize: 20),
+                )),
+                subtitle: Center(
                   child: TextField(
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(hintText: "Tip"),
+                    onSubmitted: (taraRezidenta) => setState(() => _taraRezidenta = taraRezidenta),
                   ),
                 ),
-                Spacer(),
-                Flexible(
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(hintText: "Serie"),
+              ),
+            ),
+            Visibility(
+              visible: !_clientulEsteRezident,
+              child: Spacer(),
+            ),
+            ListTile(
+              title: Center(
+                child: Text(
+                  "Document Identitate",
+                  style: TextStyle(fontSize: 20),
+                ), // todo: store fields
+              ),
+              subtitle: Row(
+                children: [
+                  Flexible(
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(hintText: "Tip"),
+                    ),
                   ),
+                  Spacer(),
+                  Flexible(
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(hintText: "Serie"),
+                    ),
+                  ),
+                  Spacer(),
+                  Flexible(
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(hintText: "Număr"),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Suma Încasată",
+                style: TextStyle(fontSize: 20),
+              )),
+              subtitle: Center(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
                 ),
-                Spacer(),
-                Flexible(
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(hintText: "Număr"),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Suma Încasată")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
               ),
             ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Cursul de Schimb")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Cursul de Schimb",
+                style: TextStyle(fontSize: 20),
+              )),
+              subtitle: Center(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
+                ),
               ),
             ),
-          ),
-        ),
-        Spacer(),
-        Card(
-          child: ListTile(
-            title: Center(child: Text("Suma plătită clientului")),
-            subtitle: Center(
-              child: TextField(
-                textAlign: TextAlign.center,
-                onSubmitted: (sumaPlatita) => setState(() => _sumaPlatita = sumaPlatita),
+            Spacer(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                "Suma plătită clientului",
+                style: TextStyle(fontSize: 20),
+              )),
+              subtitle: Center(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  onSubmitted: (sumaPlatita) => setState(() => _sumaPlatita = sumaPlatita),
+                ),
               ),
             ),
-          ),
+            Spacer(),
+          ],
         ),
-        Spacer(),
-      ],
+      ),
     );
   }
 }
