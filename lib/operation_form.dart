@@ -19,6 +19,7 @@ class OperationForm extends StatefulWidget {
 }
 
 class Operatiuni {
+  // todo: move to resources
   static const String Tranzactie = "Tranzacție";
   static const String Transfer = "Transfer";
 }
@@ -26,39 +27,40 @@ class Operatiuni {
 class _OperationFormState extends State<OperationForm> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Card(
-          child: ListTile(
-            title: Center(
-              child: Text("Cel fel de operațiune ați dori să efectuați?"),
-            ),
-            subtitle: Center(
-              child: DropdownButton(
-                value: null,
-                items: widget._optiuniDeSelectare,
-                onChanged: laSelectareaOperatiunii,
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 3 / 2,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              title: Center(
+                child: Text("Cel fel de operațiune ați dori să efectuați?"),
               ),
-            ),
-          ),
-        )
-      ],
+              subtitle: Center(
+                child: DropdownButton(
+                  value: null,
+                  items: widget._optiuniDeSelectare,
+                  onChanged: (operatiuneaSelectata) {
+                    if (operatiuneaSelectata == Operatiuni.Tranzactie)
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TransactionScreen(),
+                          ));
+                    if (operatiuneaSelectata == Operatiuni.Transfer)
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TransferScreen(),
+                          ));
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
-  }
-
-  laSelectareaOperatiunii(operatiuneSelectata) {
-    if (operatiuneSelectata == Operatiuni.Tranzactie)
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TransactionScreen(),
-          ));
-    if (operatiuneSelectata == Operatiuni.Transfer)
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TransferScreen(),
-          ));
   }
 }
