@@ -45,162 +45,125 @@ class _TransactionFormState extends State<TransactionForm> {
       child: AspectRatio(
         aspectRatio: 4 / 3,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Selectați tipul tranzacției",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: DropdownButton(
-                  value: _tipTranzactie,
-                  items: widget._tipuriDeTranzactii,
-                  onChanged: (tipTranzactie) => setState(() => _tipTranzactie = tipTranzactie),
-                ),
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Nume client",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  onChanged: (numeClient) => setState(() => _numeClient = numeClient),
-                ),
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Prenume client",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  onChanged: (prenumeClient) => setState(() => _prenumeClient = prenumeClient),
-                ),
-              ),
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Table(
               children: [
-                Text(
-                  "Clientul este rezident?",
-                  style: TextStyle(fontSize: 20),
+                TableRow(
+                  children: [
+                    ListTile(
+                      title: Center(child: Text("Tipul tranzacției", style: TextStyle(fontSize: 20))),
+                      subtitle: Center(
+                        child: DropdownButton(
+                          value: _tipTranzactie,
+                          items: widget._tipuriDeTranzactii,
+                          onChanged: (tipTranzactie) => setState(() => _tipTranzactie = tipTranzactie),
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      title: Center(child: Text("Nume și prenume client", style: TextStyle(fontSize: 20))),
+                      subtitle: Center(
+                        child: TextField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(hintText: "e.g. Popescu Andrei"),
+                            onChanged: (numeClient) => setState(() => _numeClient = numeClient)),
+                      ),
+                    ),
+                    CheckboxListTile(
+                      title: Center(child: Text("Rezident?", style: TextStyle(fontSize: 20))),
+                      subtitle: Visibility(
+                        visible: !_clientulEsteRezident,
+                        child: ListTile(
+                          title: Center(
+                              child: Text(
+                            "Țara de rezidență",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                          subtitle: Center(
+                            child: TextField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(hintText: "e.g. Austria"),
+                              onSubmitted: (taraRezidenta) => setState(() => _taraRezidenta = taraRezidenta),
+                            ),
+                          ),
+                        ),
+                      ),
+                      value: _clientulEsteRezident,
+                      onChanged: (value) => setState(() => _clientulEsteRezident = value),
+                    ),
+                    ListTile(
+                      title: Center(child: Text("Document Identitate", style: TextStyle(fontSize: 20))),
+                      subtitle: Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            fit: FlexFit.tight,
+                            child: TextField(textAlign: TextAlign.center, decoration: InputDecoration(hintText: "Tip")),
+                          ),
+                          Spacer(),
+                          Flexible(
+                            flex: 2,
+                            fit: FlexFit.tight,
+                            child:
+                                TextField(textAlign: TextAlign.center, decoration: InputDecoration(hintText: "Serie")),
+                          ),
+                          Spacer(),
+                          Flexible(
+                            flex: 6,
+                            fit: FlexFit.tight,
+                            child:
+                                TextField(textAlign: TextAlign.center, decoration: InputDecoration(hintText: "Număr")),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Checkbox(
-                  value: _clientulEsteRezident,
-                  onChanged: (value) => setState(
-                    () => _clientulEsteRezident = value,
+                TableRow(children: [
+                  ListTile(
+                    title: Center(child: Text("Suma Încasată", style: TextStyle(fontSize: 20))),
+                    subtitle: Center(
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(hintText: "e.g. 123,46"),
+                        onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
+                      ),
+                    ),
                   ),
-                )
+                  ListTile(
+                    title: Center(child: Text("Moneda", style: TextStyle(fontSize: 20))),
+                    subtitle: Center(
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(hintText: "e.g. \$"),
+                        onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Center(child: Text("Cursul de Schimb", style: TextStyle(fontSize: 20))),
+                    subtitle: Center(
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(hintText: "e.g. 4,25"),
+                        onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Center(child: Text("Suma de plată clientului", style: TextStyle(fontSize: 20))),
+                    subtitle: Center(
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(hintText: "e.g. 567,78"),
+                        onSubmitted: (sumaPlatita) => setState(() => _sumaPlatita = sumaPlatita),
+                      ),
+                    ),
+                  ),
+                ]),
               ],
             ),
-            Spacer(),
-            Visibility(
-              visible: !_clientulEsteRezident,
-              child: ListTile(
-                title: Center(
-                    child: Text(
-                  "Țara de rezidență a clientului",
-                  style: TextStyle(fontSize: 20),
-                )),
-                subtitle: Center(
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    onSubmitted: (taraRezidenta) => setState(() => _taraRezidenta = taraRezidenta),
-                  ),
-                ),
-              ),
-            ),
-            Visibility(
-              visible: !_clientulEsteRezident,
-              child: Spacer(),
-            ),
-            ListTile(
-              title: Center(
-                child: Text(
-                  "Document Identitate",
-                  style: TextStyle(fontSize: 20),
-                ), // todo: store fields
-              ),
-              subtitle: Row(
-                children: [
-                  Flexible(
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(hintText: "Tip"),
-                    ),
-                  ),
-                  Spacer(),
-                  Flexible(
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(hintText: "Serie"),
-                    ),
-                  ),
-                  Spacer(),
-                  Flexible(
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(hintText: "Număr"),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Suma Încasată",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  onSubmitted: (sumaIncasata) => setState(() => _sumaIncasata = sumaIncasata),
-                ),
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Cursul de Schimb",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  onSubmitted: (cursSchimb) => setState(() => _cursSchimb = cursSchimb),
-                ),
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                "Suma plătită clientului",
-                style: TextStyle(fontSize: 20),
-              )),
-              subtitle: Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  onSubmitted: (sumaPlatita) => setState(() => _sumaPlatita = sumaPlatita),
-                ),
-              ),
-            ),
-            Spacer(),
           ],
         ),
       ),
